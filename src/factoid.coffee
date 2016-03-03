@@ -15,11 +15,12 @@
 #   ~~<user> <factoid> - Same as ~tell, less typing
 #   <factoid>? - Same as ~<factiod> except for there is no response if not found
 #   hubot no, <factoid> is <some phrase, link, whatever> - Replaces the full definition of a factoid
-#   hubot factoids list - List all factoids
-#   hubot factoid delete "<factoid>" - delete a factoid
+#   hubot factoids - List all factoids
+#   hubot forget <factoid> - Forget a factoid.
 #
 # Author:
 #   amaltson
+#   edited by Lochemage
 
 class Factoids
   constructor: (@robot) ->
@@ -105,8 +106,8 @@ module.exports = (robot) ->
   robot.respond /no, (.+) is (.+)/i, (msg) ->
     msg.reply factoids.setFactoid msg.match[1], msg.match[2]
 
-  robot.respond /factoids? list/i, (msg) ->
+  robot.respond /factoids/i, (msg) ->
     msg.send factoids.list().join('\n')
 
-  robot.respond /factoids? delete "(.*)"$/i, (msg) ->
+  robot.respond /forget (.*)/i, (msg) ->
     msg.reply factoids.delFactoid msg.match[1]
